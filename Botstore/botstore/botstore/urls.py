@@ -10,6 +10,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),  # Admin panel
     path("product/", include("products.urls")),  # Products app URLs
     path("blog/", include("blog.urls")),  # Blog app URLs
+    path("ckeditor5/", include("django_ckeditor_5.urls")),  # CKEditor 5 URLs
 ]
 
 if settings.DEBUG:  # Serve media files in development

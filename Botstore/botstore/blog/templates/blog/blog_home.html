@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
+
 {% block title %}Blog{% endblock %}
+
 {% block content %}
+{% if posts %}
 <div class="row">
   {% for post in posts %}
   <div class="col-md-4 mb-4">
@@ -17,4 +20,7 @@
   </div>
   {% endfor %}
 </div>
+{% else %}
+<p>No published posts available at the moment. Please check back later!</p>
+{% endif %}
 {% endblock %}
