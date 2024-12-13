@@ -14,7 +14,7 @@
       <div class="card-body">
         <h5 class="card-title">{{ post.title }}</h5>
         <p><small>Last updated: {{ post.last_updated|date:"F j, Y, g:i a" }}</small></p>
-        <a href="/blog/{{ post.id }}/" class="btn btn-primary">Read More</a>
+        <a href="{% url 'blog_home' %}{{ post.id }}/" class="btn btn-primary">Read More</a>
       </div>
     </div>
   </div>

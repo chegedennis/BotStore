@@ -8,7 +8,7 @@ from products.views import home  # Home view
 urlpatterns = [
     path("", home, name="home"),  # Home page
     path("admin/", admin.site.urls),  # Admin panel
-    path("product/", include("products.urls")),  # Products app URLs
+    path("products/", include("products.urls")),  # Products app URLs
     path("blog/", include("blog.urls")),  # Blog app URLs
     path("ckeditor5/", include("django_ckeditor_5.urls")),  # CKEditor 5 URLs
 ]

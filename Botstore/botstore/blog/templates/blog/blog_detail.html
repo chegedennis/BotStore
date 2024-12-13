@@ -3,7 +3,7 @@
 {% block content %}
 <div class="mb-4">
   {% if post.cover_image %}
-  <img src="{{ post.cover_image.url }}" class="img-fluid mb-3" alt="Cover image for {{ post.title }}">
+  <img src="{{ post.cover_image.url }}" class="img-fluid mb-3" alt="Cover image for {{ post.title }}" style="max-height: 400px; object-fit: cover;">
   {% endif %}
   <h1>{{ post.title }}</h1>
   <p><small>Published: {{ post.published_date|date:"F j, Y" }}</small></p>

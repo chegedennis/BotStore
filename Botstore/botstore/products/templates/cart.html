@@ -42,11 +42,11 @@
     </tfoot>
   </table>
   <div class="d-flex justify-content-between">
-    <a href="/" class="btn btn-primary">Continue Shopping</a>
+    <a href="products/" class="btn btn-primary">Continue Shopping</a>
     <a href="{% url 'checkout' %}" class="btn btn-success">Proceed to Checkout</a>
   </div>
   {% else %}
-  <p>Your cart is empty. <a href="/">Start shopping now!</a></p>
+  <p>Your cart is empty. <a href="{% url 'product_list' %}">Start shopping now!</a></p>
   {% endif %}
 </div>
 {% endblock %}
