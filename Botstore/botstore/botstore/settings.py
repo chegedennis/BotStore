@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "products",  # Custom app for managing products
     "checkout",
+    "ckeditor",
+    "blog",
 ]
 
 MIDDLEWARE = [
