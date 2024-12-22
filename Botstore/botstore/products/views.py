@@ -64,7 +64,8 @@ def view_cart(request):
         return render(
             request, "cart.html", {"cart": None, "message": "Your cart is empty."}
         )
-    return render(request, "cart.html", {"cart": cart})
+    cart_items = cart.items.all()  # Retrieve all items in the cart
+    return render(request, "cart.html", {"cart": cart, "cart_items": cart_items})
 
 
 def remove_from_cart(request, item_id):
@@ -90,20 +91,49 @@ def checkout(request):
         return redirect("view_cart")
 
     if request.method == "POST":
-        name = request.POST.get("name")
+        payment_method = request.POST.get("payment_method")
         email = request.POST.get("email")
-        address = request.POST.get("address")
 
-        # Basic validation
-        if not name or not email or not address:
-            messages.error(request, "All fields are required.")
-            return render(request, "checkout.html", {"cart": cart})
+        if payment_method == "stripe":
+            token = request.POST.get("stripeToken")  # Get the token from the form
+            try:
+                charge = stripe.Charge.create(
+                    amount=int(total_cost * 100),  # Amount in cents
+                    currency="usd",
+                    description="Payment for products",
+                    source=token,
+                    receipt_email=email,
+                )
+                # Generate download link for the product
+                download_link = "/media/products/your_product_file.zip"  # Update with actual file path
 
-        # Save order details (this can be expanded)
-        # Clear the cart
-        cart.items.all().delete()
-        cart.delete()
-        messages.success(request, "Thank you for your purchase!")
-        return redirect("home")
+                # Make an API call to complete the purchase
+                api_url = "https://your-api-endpoint.com/complete-purchase"  # Replace with actual API endpoint
+                purchase_data = {
+                    "email": email,
+                    "cart_items": cart.items.all(),
+                    "total_cost": total_cost,
+                    "payment_method": payment_method,
+                }
+                api_response = requests.post(api_url, json=purchase_data)
+
+                if api_response.status_code == 200:
+                    messages.success(
+                        request, "Payment processed successfully and purchase completed"
+                    )
+                    # Clear the cart
+                    cart.items.all().delete()
+                    cart.delete()
+                    return redirect("home")
+                else:
+                    messages.error(request, "Failed to complete the purchase")
+            except stripe.error.StripeError as e:
+                messages.error(request, str(e))
+
+        elif payment_method == "mpesa":
+            phone_number = request.POST.get("phone_number")
+            response = initiate_mpesa_payment(phone_number, total_cost)
+            messages.success(request, "M-Pesa payment initiated.")
+            return redirect("home")
 
     return render(request, "checkout.html", {"cart": cart})

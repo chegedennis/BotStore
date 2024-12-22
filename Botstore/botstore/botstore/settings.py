@@ -17,7 +17,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure--cgtk%)yw0p9b5)(##o0s=_az%@498q@2r&5ddk$x0ix22ts8w"
+import os  # Importing os for environment variable handling
+
+
+SECRET_KEY = os.environ.get(
+    "DJANGO_SECRET_KEY", "default-secret-key"
+)  # Load from environment variable
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -33,7 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "products",  # Custom app for managing products
-    "checkout",
+    # "checkout",  # Removed checkout app reference
     "django_ckeditor_5",
     "blog",
 ]
@@ -110,7 +115,12 @@ USE_TZ = True
 # Static files configuration (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]  # Your static files directory
+STATIC_ROOT = (
+    BASE_DIR / "staticfiles"
+)  # The folder where all collected static files will go
+
 
 # Media files configuration (for user-uploaded content)
 MEDIA_URL = "/media/"

@@ -1,0 +1,43 @@
+body {
+    background: radial-gradient(circle, #2e3b4e, #1c2733, #0f151e); /* Gradient inspired by Socratica's aesthetics */
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    color: white;
+    font-family: 'Arial', sans-serif;
+}
+
+.jumbotron {
+    background-image: url('/static/images/botstore.webp'); /* Update path if necessary */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    border-radius: 8px;
+    padding: 3rem;
+}
+
+.card {
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 1.5rem;
+    }
+}

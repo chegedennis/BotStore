@@ -1,7 +1,11 @@
 {% extends 'base.html' %} 
+{% load static %}
 {% block title %}Home{% endblock %} 
+
 {% block content %}
-<div class="jumbotron text-center bg-light p-5">
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+<div class="jumbotron text-center p-5">
   <h1 class="display-4">Welcome to The Bot Store</h1>
   <p class="lead">Enhance your trading experience with our premium bots!</p>
   <a class="btn btn-primary btn-lg" href="{% url 'product_list' %}" role="button">Explore Products</a>
